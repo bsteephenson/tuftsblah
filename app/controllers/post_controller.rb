@@ -19,8 +19,12 @@ class PostController < ApplicationController
 		if current_user
 			title = params[:title]
 			content = params[:content]
-			tag = Tag.find(params[:tag])
-			post = Post.create(user: current_user, title: title, content: content, tag: tag)
+			tag = Tag.find_by_id(params[:tag])
+			if tag
+				post = Post.create(user: current_user, title: title, content: content, tag: tag)
+			else
+				post = Post.create(user: current_user, title: title, content: content)
+			end
 			redirect_to "/post/#{post.id}"
 		else
 			render text: "You must be logged in to do that..."
