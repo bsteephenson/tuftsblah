@@ -2,6 +2,11 @@ class PostController < ApplicationController
 
 	def index
 		@posts = Post.all
+		now = Time.now.to_i
+		@posts.to_a.sort! do |x,y|
+			(x.upvotes / (Time.now - x.created_at)) <=> (y.upvotes / (Time.now - y.created_at))
+		end
+		@posts = @posts.reverse
 		@user = current_user
 	end
 	
