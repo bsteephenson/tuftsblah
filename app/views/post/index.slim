@@ -1,32 +1,25 @@
 
-.ui.inverted.menu
-	.ui.container
-		.active.item
-			a All
-		.item
-			a New
-		.item
-			a # Ask
-		.item
-			a # Buy/Sell
-		.item
-			a # Events
-		.right.menu
-			.item
-				a Me
-			.item
-				a Readme
+coffee:
+	$(document).ready () =>
+		$(".upvote_post").click (e) =>
+			post_id = $(e.target).data("post-id")
+			$.post('/post/like_or_unlike_post', {post: post_id}, (res, err) => 
+				if (res.success)
+					$(e.target).toggleClass("green")
+			)
+
 .ui.main.container
 	.ui.feed
 		- @posts.each do |post|
 			.event
 				.label
-					i.angle.up.icon
+					i.angle.up.icon.upvote_post class="#{if @user && @user.likes_post?(post) then "green"}" data-post-id="#{post.id}"
 				.content
 					.summary
-						a href="post/#{post.id}"  = post.title
+						a href="post/#{post.id}/"  = post.title
 					.meta
 						| Posted #{post.created_at} | 
 						| #{if post.tag then post.tag.name else "Misc"} | 
 						| #{post.user.email} | 
+						| #{post.upvotes} Likes | 
 						| #{post.comments.count} Comments

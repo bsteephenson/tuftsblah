@@ -6,4 +6,29 @@ class User < ActiveRecord::Base
   has_many :posts
   has_and_belongs_to_many :liked_posts, join_table: :user_post_likes, class_name: "Post"
   has_and_belongs_to_many :liked_comments, join_table: :user_comment_likes, class_name: "Comment"
+  
+  def likes_post?(post)
+    return UserPostLike.exists?(user: self, post: post)
+  end
+  
+  def likes_comment?(comment)
+    return UserCommentLike.exists?(user: self, comment: comment)
+  end
+  
+  def like_post(post)
+    UserPostLike.create(user: self, post: post)
+  end
+  
+  def unlike_post(post)
+    UserPostLike.destroy_all(user: self, post: post)
+  end
+  
+  def like_comment(comment)
+    UserCommentLike.create(user: self, comment: comment)
+  end
+  
+  def unlike_comment(comment)
+    UserCommentLike.destroy_all(user: self, comment: comment)
+  end
+  
 end

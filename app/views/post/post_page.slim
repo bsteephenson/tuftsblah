@@ -1,24 +1,32 @@
 
-.ui.inverted.menu
-	.ui.container
-		.item
-			a All
-		.item
-			a New
-		.item
-			a # Ask
-		.item
-			a # Buy/Sell
-		.item
-			a # Events
-		.right.menu
-			.item
-				a Me
-			.item
-				a Readme
+coffee:
+	$(document).ready =>
+		$("form").hide()
+		$("form.top_level").show()
+		
+		$(".upvote_post").click (e) =>
+			post_id = $(e.target).data("post-id")
+			$.post('/post/like_or_unlike_post', {post: post_id}, (res, err) => 
+				if (res.success)
+					$(e.target).toggleClass("green")
+			)
+		$(".upvote_comment").click (e) =>
+				comment_id = $(e.target).data("comment-id")
+				$.post('/post/like_or_unlike_comment', {comment: comment_id}, (res, err) => 
+					if (res.success)
+						$(e.target).toggleClass("green")
+				)
+
+		
+	# Shows or hides the form for replying to a specific comment
+	window.toggle_comment = (comment_id) =>
+		$("form[data-comment-id= #{comment_id}]").toggle()
+
 .ui.main.container
 	.ui.feed
 		.event
+			.label
+				i.angle.up.icon.upvote_post class="#{if @user && @user.likes_post?(@post) then "green"}" data-post-id="#{@post.id}"
 			.content
 				.summary
 					a href="/post/#{@post.id}"  = @post.title
@@ -53,26 +61,10 @@
 			/ 					.actions
 			/ 						a Reply
 			/ 						a Save
-			- @post.comments.each do |comment|
-				- if comment.parent_comment == nil
-					.comment
-						.avatar
-							i.angle.up.icon
-						.content
-							a.author = comment.user.email
-							.metadata
-								span = comment.created_at
-							.text = comment.content
-							.actions
-								a Reply
-							- unless comment.children_comments.empty?
-								.comments
-									- comment.children_comments.each do |child_comment|
-										.comment
-											.avatar
-												i.angle.up.icon
-											.content
-												a.author = child_comment.user.email
-												.metadata
-													span = child_comment.created_at
-												.text = child_comment.content
+			form.ui.reply.form.top_level action="new_comment" method="post"
+				= hidden_field_tag :authenticity_token, form_authenticity_token
+				.field
+					textarea name="content"
+				input.ui.blue.tiny.submit.button type="submit" value="Add Comment"
+			- @post.comments.where(parent_comment: nil).each do |comment|
+				= render "post/comment", comment: comment

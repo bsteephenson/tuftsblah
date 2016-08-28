@@ -10,7 +10,13 @@ Rails.application.routes.draw do
   #   get 'products/:id' => 'catalog#view'
 
   get '/' => 'post#index'
-  get '/post/:id' => 'post#post_page'
+  get '/user/' => 'user#index'
+  get '/post/new' => 'post#new_post'
+  post '/post/new' => 'post#new_post_submit'
+  get '/post/:id/' => 'post#post_page'
+  post '/post/:post_id/new_comment' => "post#new_comment"
+  post '/post/like_or_unlike_post' => "post#like_or_unlike_post"
+  post '/post/like_or_unlike_comment' => "post#like_or_unlike_comment"
   # get 'hello/' => 'hello#index'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)

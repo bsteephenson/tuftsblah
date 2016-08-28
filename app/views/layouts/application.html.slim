@@ -6,4 +6,21 @@ html
     = javascript_include_tag "application"
     = csrf_meta_tags
   body
+    .ui.inverted.menu
+      .ui.container
+        .item
+          a All
+        .item
+          a New
+        .item
+          a # Ask
+        .item
+          a # Buy/Sell
+        .item
+          a # Events
+        .right.menu
+          .item
+            a Me
+          .item
+            a Readme
     = yield
