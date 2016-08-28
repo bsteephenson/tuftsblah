@@ -5,6 +5,19 @@ class PostController < ApplicationController
 		@user = current_user
 	end
 	
+	def new_posts
+		@posts = Post.all
+		@user = current_user
+		render template: "post/index"
+	end
+	
+	def posts_with_tag
+		tag = Tag.find_by(name: params[:tag_name])
+		@posts = Post.where(tag: tag)
+		@user = current_user
+		render template: "post/index"		
+	end
+	
 	def post_page
 		id = params[:id]
 		@post = Post.find(id)
