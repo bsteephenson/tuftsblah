@@ -24,7 +24,7 @@
 					i.angle.up.icon
 				.content
 					.summary
-						a href="/post/#{post.id}"  = post.title
+						a href="post/#{post.id}"  = post.title
 					.meta
 						| Posted #{post.created_at} | 
 						| #{if post.tag then post.tag.name else "Misc"} | 

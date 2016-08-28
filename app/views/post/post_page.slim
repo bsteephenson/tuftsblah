@@ -1,0 +1,78 @@
+
+.ui.inverted.menu
+	.ui.container
+		.item
+			a All
+		.item
+			a New
+		.item
+			a # Ask
+		.item
+			a # Buy/Sell
+		.item
+			a # Events
+		.right.menu
+			.item
+				a Me
+			.item
+				a Readme
+.ui.main.container
+	.ui.feed
+		.event
+			.content
+				.summary
+					a href="/post/#{@post.id}"  = @post.title
+				.extra.text = @post.content
+				.meta
+					| Posted #{@post.created_at} | 
+					| #{if @post.tag then @post.tag.name else "Misc"} | 
+					| #{@post.user.email} | 
+					| #{@post.comments.count} Comments
+	hr
+		.ui.comments
+			/ .comment
+			/ 	.avatar
+			/ 		i.angle.up.icon
+			/ 	.content
+			/ 		a.author Bob.Smith@tufts.edu
+			/ 		.metadata
+			/ 			span Aug 18th
+			/ 		.text Blah blah blah blah blah
+			/ 		.actions
+			/ 			a Reply
+			/ 			a Save
+			/ 		.comments
+			/ 			.comment
+			/ 				.avatar
+			/ 					i.angle.up.icon
+			/ 				.content
+			/ 					a.author Bob.Smith@tufts.edu
+			/ 					.metadata
+			/ 						span Aug 18th
+			/ 					.text Blah blah blah blah blah
+			/ 					.actions
+			/ 						a Reply
+			/ 						a Save
+			- @post.comments.each do |comment|
+				- if comment.parent_comment == nil
+					.comment
+						.avatar
+							i.angle.up.icon
+						.content
+							a.author = comment.user.email
+							.metadata
+								span = comment.created_at
+							.text = comment.content
+							.actions
+								a Reply
+							- unless comment.children_comments.empty?
+								.comments
+									- comment.children_comments.each do |child_comment|
+										.comment
+											.avatar
+												i.angle.up.icon
+											.content
+												a.author = child_comment.user.email
+												.metadata
+													span = child_comment.created_at
+												.text = child_comment.content
