@@ -1,5 +1,17 @@
 
 .ui.main.container
-	p TODO signup / login / logout pages depending on if logged in
+	- if @user
+		p Logged in as #{@user.email}
+		form action="/user/sign_out" method="delete"
+			= hidden_field_tag :authenticity_token, form_authenticity_token
+			= link_to "Sign out", destroy_user_session_path, :method => :delete
+	- else
+		p You are not logged in.
+		p
+			= link_to "Sign up", new_user_registration_path
+			|  or 
+			= link_to "Login", new_user_session_path
+		
+		
 	p TODO posts I've liked, comments I've liked
 	p TODO posts I've made, comments I've made
