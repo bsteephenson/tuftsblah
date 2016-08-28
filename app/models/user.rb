@@ -31,4 +31,12 @@ class User < ActiveRecord::Base
     UserCommentLike.destroy_all(user: self, comment: comment)
   end
   
+  validate :email_ends_with_tufts
+  
+  def email_ends_with_tufts
+    if !(self.email.end_with?("@tufts.edu"))
+      errors.add(:email, "Email does not end in @tufts.edu")
+    end
+  end
+  
 end
