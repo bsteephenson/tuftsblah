@@ -11,7 +11,7 @@ class PostController < ApplicationController
 	end
 	
 	def new_posts
-		@posts = Post.all
+		@posts = Post.order(created_at: :desc).all
 		@user = current_user
 		render template: "post/index"
 	end
