@@ -2,37 +2,44 @@ doctype html
 html
   head
     title Tufts Blah
+    meta name="viewport" content="width=device-width, initial-scale=1"
     = stylesheet_link_tag "application", media: "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
+    css:
+      body {
+        width: 100vw
+      }
+      .ui.menu {
+        flex-wrap: wrap
+      }
   body
-    .ui.inverted.menu
-      .ui.container
+    .nav.ui.inverted.menu.grid
+      .item
+        a href="/" All
+      .item
+        a href="/latest" Latest
+      .item
+        a href="/ask" # Ask
+      .item
+        a href="/buysell" # Buy/Sell
+      .item
+        a href="/events" # Events
+      .right.menu
+        - if current_user
+          .item
+            a href="/post/new" New Post
         .item
-          a href="/" All
-        .item
-          a href="/latest" Latest
-        .item
-          a href="/ask" # Ask
-        .item
-          a href="/buysell" # Buy/Sell
-        .item
-          a href="/events" # Events
-        .right.menu
           - if current_user
-            .item
-              a href="/post/new" New Post
-          .item
-            - if current_user
-              a href="/user" #{current_user.email}
-            - else
-              a href="/users/sign_in" Login / Sign Up
-          .item
-            a Readme
-    .ui.main.container
+            a href="/user" #{current_user.email}
+          - else
+            a href="/users/sign_in" Login / Sign Up
+        .item
+          a Readme
+    .ui.container
       = yield
-    
-    
+      
+      
     coffee:
       $(document).ready =>
         # Markdownify all the things
