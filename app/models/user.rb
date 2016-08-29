@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   
   def email_ends_with_tufts
     if !(self.email.end_with?("@tufts.edu"))
-      errors.add(:email, "Email does not end in @tufts.edu")
+      errors.add(:email, "does not end in @tufts.edu")
     end
   end
   
