@@ -20,7 +20,20 @@ html
           a href="/events" # Events
         .right.menu
           .item
-            a href="/user" Me
+            - if current_user
+              a href="/user" #{current_user.email}
+            - else
+              a href="/users/sign_in" Login / Sign Up
           .item
             a Readme
     = yield
+    
+    
+    coffee:
+      $(document).ready =>
+        # Markdownify all the things
+        converter = new showdown.Converter()
+        $(".text").each () ->
+          text = $(this).text()
+          html = converter.makeHtml(text)
+          $(this).html(html)

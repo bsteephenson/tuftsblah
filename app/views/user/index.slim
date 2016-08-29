@@ -1,17 +1,29 @@
 
 .ui.main.container
 	- if @user
-		p Logged in as #{@user.email}
+		h1 My Account
 		form action="/user/sign_out" method="delete"
 			= hidden_field_tag :authenticity_token, form_authenticity_token
 			= link_to "Sign out", destroy_user_session_path, :method => :delete
-	- else
-		p You are not logged in.
-		p
-			= link_to "Sign up", new_user_registration_path
-			|  or 
-			= link_to "Login", new_user_session_path
+		h3 My Posts
+		.ui.feed
+		- @user.posts.each do |post|
+			.event
+				.content
+					.summary
+						a href="/post/#{post.id}"  = post.title
+					.extra.text = post.content
+					.meta
+						| Posted #{post.created_at} | 
+						| #{if post.tag then post.tag.name else "Misc"}
+
+		h3 My Comments
+		.ui.feed
+		- @user.comments.each do |comment|
+			.event
+				.content
+					.summary
+						a href="/post/#{comment.post.id}"  = comment.post.title
+					.extra.text = comment.content
+					.meta = comment.created_at
 		
-		
-	p TODO posts I've liked, comments I've liked
-	p TODO posts I've made, comments I've made
