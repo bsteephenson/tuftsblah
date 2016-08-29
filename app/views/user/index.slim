@@ -1,30 +1,29 @@
 
-.ui.main.container
-	- if @user
-		h1 My Account
-		form action="/user/sign_out" method="delete"
-			= hidden_field_tag :authenticity_token, form_authenticity_token
-			= link_to "Sign out", destroy_user_session_path, :method => :delete
-		a href="/users/edit" Edit Account (email/password)
-		h3 My Posts
-		.ui.feed
-		- @user.posts.each do |post|
-			.event
-				.content
-					.summary
-						a href="/post/#{post.id}/"  = post.title
-					.extra.text = post.content
-					.meta
-						| Posted #{pretty_time post.created_at} | 
-						| #{if post.tag then post.tag.name else "Misc"}
+- if @user
+	h1 My Account
+	form action="/user/sign_out" method="delete"
+		= hidden_field_tag :authenticity_token, form_authenticity_token
+		= link_to "Sign out", destroy_user_session_path, :method => :delete
+	a href="/users/edit" Edit Account (email/password)
+	h3 My Posts
+	.ui.feed
+	- @user.posts.each do |post|
+		.event
+			.content
+				.summary
+					a href="/post/#{post.id}/"  = post.title
+				.extra.text = post.content
+				.meta
+					| Posted #{pretty_time post.created_at} | 
+					| #{if post.tag then post.tag.name else "Misc"}
 
-		h3 My Comments
-		.ui.feed
-		- @user.comments.each do |comment|
-			.event
-				.content
-					.summary
-						a href="/post/#{comment.post.id}/"  = comment.post.title
-					.extra.text = comment.content
-					.meta = pretty_time comment.created_at
-		
+	h3 My Comments
+	.ui.feed
+	- @user.comments.each do |comment|
+		.event
+			.content
+				.summary
+					a href="/post/#{comment.post.id}/"  = comment.post.title
+				.extra.text = comment.content
+				.meta = pretty_time comment.created_at
+	

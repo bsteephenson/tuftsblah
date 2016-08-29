@@ -22,29 +22,28 @@ coffee:
 	window.toggle_comment = (comment_id) =>
 		$("form[data-comment-id= #{comment_id}]").toggle()
 
-.ui.main.container
-	.ui.feed
-		.event
-			.label
-				i.angle.up.icon.upvote_post class="#{if @user && @user.likes_post?(@post) then "green"}" data-post-id="#{@post.id}"
-			.content
-				.summary
-					a href="/post/#{@post.id}/"  = @post.title
-				.extra.text = @post.content
-				.meta
-					| Posted #{pretty_time @post.created_at} | 
-					| #{if @post.tag then @post.tag.name else "Misc"} | 
-					| #{@post.user.email} | 
-					| #{@post.comments.count} Comments 
-					- if @user == @post.user
-						| | 
-						= link_to "Delete", "/delete_post/#{@post.id}", :method => :delete
-	hr
-		.ui.comments
-			form.ui.reply.form.top_level action="new_comment" method="post"
-				= hidden_field_tag :authenticity_token, form_authenticity_token
-				.field
-					textarea name="content"
-				input.ui.blue.tiny.submit.button type="submit" value="Add Comment"
-			- @post.comments.where(parent_comment: nil).each do |comment|
-				= render "post/comment", comment: comment
+.ui.feed
+	.event
+		.label
+			i.angle.up.icon.upvote_post class="#{if @user && @user.likes_post?(@post) then "green"}" data-post-id="#{@post.id}"
+		.content
+			.summary
+				a href="/post/#{@post.id}/"  = @post.title
+			.extra.text = @post.content
+			.meta
+				| Posted #{pretty_time @post.created_at} | 
+				| #{if @post.tag then @post.tag.name else "Misc"} | 
+				| #{@post.user.email} | 
+				| #{@post.comments.count} Comments 
+				- if @user == @post.user
+					| | 
+					= link_to "Delete", "/delete_post/#{@post.id}", :method => :delete
+hr
+	.ui.comments
+		form.ui.reply.form.top_level action="new_comment" method="post"
+			= hidden_field_tag :authenticity_token, form_authenticity_token
+			.field
+				textarea name="content"
+			input.ui.blue.tiny.submit.button type="submit" value="Add Comment"
+		- @post.comments.where(parent_comment: nil).each do |comment|
+			= render "post/comment", comment: comment

@@ -1,14 +1,13 @@
 
-.ui.main.container
-	form.ui.form action="/post/new" method="post"
-		= hidden_field_tag :authenticity_token, form_authenticity_token
-		.field
-			input name="title" type="text" placeholder="Title"
-		.field
-			textarea name="content" placeholder="Content"
-		.field
-			select.ui.field.dropdown name="tag"
-				option Select a tag (defaults to Misc)
-				- Tag.all.each do |tag|
-					option value = "#{tag.id}" #{tag.name}
-		input.ui.blue.tiny.submit.button type="submit" value="Create Post"
+form.ui.form action="/post/new" method="post"
+	= hidden_field_tag :authenticity_token, form_authenticity_token
+	.field
+		input name="title" type="text" placeholder="Title"
+	.field
+		textarea name="content" placeholder="Content"
+	.field
+		select.ui.field.dropdown name="tag"
+			option Select a tag (defaults to Misc)
+			- Tag.all.each do |tag|
+				option value = "#{tag.id}" #{tag.name}
+	input.ui.blue.tiny.submit.button type="submit" value="Create Post"

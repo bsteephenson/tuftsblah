@@ -8,18 +8,17 @@ coffee:
 					$(e.target).toggleClass("green")
 			)
 
-.ui.main.container
-	.ui.feed
-		- @posts.each do |post|
-			.event
-				.label
-					i.angle.up.icon.upvote_post class="#{if @user && @user.likes_post?(post) then "green"}" data-post-id="#{post.id}"
-				.content
-					.summary
-						a href="post/#{post.id}/"  = post.title
-					.meta
-						| Posted #{pretty_time post.created_at} | 
-						| #{if post.tag then post.tag.name else "Misc"} | 
-						| #{post.user.email} | 
-						| #{post.upvotes} Likes | 
-						| #{post.comments.count} Comments
+.ui.feed
+	- @posts.each do |post|
+		.event
+			.label
+				i.angle.up.icon.upvote_post class="#{if @user && @user.likes_post?(post) then "green"}" data-post-id="#{post.id}"
+			.content
+				.summary
+					a href="post/#{post.id}/"  = post.title
+				.meta
+					| Posted #{pretty_time post.created_at} | 
+					| #{if post.tag then post.tag.name else "Misc"} | 
+					| #{post.user.email} | 
+					| #{post.upvotes} Likes | 
+					| #{post.comments.count} Comments
