@@ -29,7 +29,7 @@ coffee:
 				i.angle.up.icon.upvote_post class="#{if @user && @user.likes_post?(@post) then "green"}" data-post-id="#{@post.id}"
 			.content
 				.summary
-					a href="/post/#{@post.id}"  = @post.title
+					a href="/post/#{@post.id}/"  = @post.title
 				.extra.text = @post.content
 				.meta
 					| Posted #{@post.created_at} | 

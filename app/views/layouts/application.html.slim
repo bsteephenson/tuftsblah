@@ -11,7 +11,7 @@ html
         .item
           a href="/" All
         .item
-          a href="/new" New
+          a href="/latest" Latest
         .item
           a href="/ask" # Ask
         .item
@@ -19,6 +19,9 @@ html
         .item
           a href="/events" # Events
         .right.menu
+          - if current_user
+            .item
+              a href="/post/new" New Post
           .item
             - if current_user
               a href="/user" #{current_user.email}

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   #   get 'products/:id' => 'catalog#view'
 
   get '/' => 'post#index'
-  get '/new' => 'post#new_posts'
+  get '/latest' => 'post#latest_posts'
   get '/ask' => 'post#posts_with_tag', tag_name: "Ask"
   get '/buysell' => 'post#posts_with_tag', tag_name: "Buy/Sell"
   get '/events' => 'post#posts_with_tag', tag_name: "Events"

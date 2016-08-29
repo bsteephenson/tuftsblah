@@ -10,7 +10,7 @@ class PostController < ApplicationController
 		@user = current_user
 	end
 	
-	def new_posts
+	def latest_posts
 		@posts = Post.where(deleted: false).order(created_at: :desc).all
 		@user = current_user
 		render template: "post/index"

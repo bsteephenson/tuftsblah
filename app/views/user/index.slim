@@ -11,7 +11,7 @@
 			.event
 				.content
 					.summary
-						a href="/post/#{post.id}"  = post.title
+						a href="/post/#{post.id}/"  = post.title
 					.extra.text = post.content
 					.meta
 						| Posted #{post.created_at} | 
@@ -23,7 +23,7 @@
 			.event
 				.content
 					.summary
-						a href="/post/#{comment.post.id}"  = comment.post.title
+						a href="/post/#{comment.post.id}/"  = comment.post.title
 					.extra.text = comment.content
 					.meta = comment.created_at
 		
