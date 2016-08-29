@@ -18,7 +18,7 @@ class PostController < ApplicationController
 	
 	def posts_with_tag
 		tag = Tag.find_by(name: params[:tag_name])
-		@posts = Post.where(tag: tag)
+		@posts = Post.where(tag: tag, deleted: false)
 		@user = current_user
 		render template: "post/index"		
 	end
