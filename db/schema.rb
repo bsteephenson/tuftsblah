@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160827224527) do
+ActiveRecord::Schema.define(version: 20160829015037) do
 
   create_table "comments", force: :cascade do |t|
-    t.integer  "post_id",                          null: false
-    t.integer  "user_id",                          null: false
+    t.integer  "post_id",                           null: false
+    t.integer  "user_id",                           null: false
     t.integer  "parent_comment_id"
-    t.text     "content",                          null: false
-    t.boolean  "deleted",           default: true, null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.text     "content",                           null: false
+    t.boolean  "deleted",           default: false, null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "posts", force: :cascade do |t|

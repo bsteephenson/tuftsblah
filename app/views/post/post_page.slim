@@ -35,32 +35,12 @@ coffee:
 					| Posted #{@post.created_at} | 
 					| #{if @post.tag then @post.tag.name else "Misc"} | 
 					| #{@post.user.email} | 
-					| #{@post.comments.count} Comments
+					| #{@post.comments.count} Comments 
+					- if @user == @post.user
+						| | 
+						= link_to "Delete", "/delete_post/#{@post.id}", :method => :delete
 	hr
 		.ui.comments
-			/ .comment
-			/ 	.avatar
-			/ 		i.angle.up.icon
-			/ 	.content
-			/ 		a.author Bob.Smith@tufts.edu
-			/ 		.metadata
-			/ 			span Aug 18th
-			/ 		.text Blah blah blah blah blah
-			/ 		.actions
-			/ 			a Reply
-			/ 			a Save
-			/ 		.comments
-			/ 			.comment
-			/ 				.avatar
-			/ 					i.angle.up.icon
-			/ 				.content
-			/ 					a.author Bob.Smith@tufts.edu
-			/ 					.metadata
-			/ 						span Aug 18th
-			/ 					.text Blah blah blah blah blah
-			/ 					.actions
-			/ 						a Reply
-			/ 						a Save
 			form.ui.reply.form.top_level action="new_comment" method="post"
 				= hidden_field_tag :authenticity_token, form_authenticity_token
 				.field

@@ -1,7 +1,7 @@
 class PostController < ApplicationController
 
 	def index
-		@posts = Post.all
+		@posts = Post.where(deleted: false).all
 		now = Time.now.to_i
 		@posts.to_a.sort! do |x,y|
 			(x.upvotes / (Time.now - x.created_at)) <=> (y.upvotes / (Time.now - y.created_at))
@@ -11,7 +11,7 @@ class PostController < ApplicationController
 	end
 	
 	def new_posts
-		@posts = Post.order(created_at: :desc).all
+		@posts = Post.where(deleted: false).order(created_at: :desc).all
 		@user = current_user
 		render template: "post/index"
 	end
@@ -89,6 +89,16 @@ class PostController < ApplicationController
 			end
 			render json: {success: true}
 		end
+	end
+	
+	def delete_post
+		Post.where(id: params[:id], user: current_user).update_all(deleted: true)
+		redirect_to "/"
+	end
+
+	def delete_comment
+		Comment.where(id: params[:id], user: current_user).update_all(deleted: true)
+		redirect_to request.referer
 	end
 
 end

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   post '/post/:post_id/new_comment' => "post#new_comment"
   post '/post/like_or_unlike_post' => "post#like_or_unlike_post"
   post '/post/like_or_unlike_comment' => "post#like_or_unlike_comment"
+  delete '/delete_comment/:id' => 'post#delete_comment'
+  delete '/delete_post/:id' => 'post#delete_post'
   # get 'hello/' => 'hello#index'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
