@@ -32,7 +32,7 @@ coffee:
 					a href="/post/#{@post.id}/"  = @post.title
 				.extra.text = @post.content
 				.meta
-					| Posted #{@post.created_at} | 
+					| Posted #{pretty_time @post.created_at} | 
 					| #{if @post.tag then @post.tag.name else "Misc"} | 
 					| #{@post.user.email} | 
 					| #{@post.comments.count} Comments 

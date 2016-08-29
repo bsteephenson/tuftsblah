@@ -15,7 +15,7 @@
 						a href="/post/#{post.id}/"  = post.title
 					.extra.text = post.content
 					.meta
-						| Posted #{post.created_at} | 
+						| Posted #{pretty_time post.created_at} | 
 						| #{if post.tag then post.tag.name else "Misc"}
 
 		h3 My Comments
@@ -26,5 +26,5 @@
 					.summary
 						a href="/post/#{comment.post.id}/"  = comment.post.title
 					.extra.text = comment.content
-					.meta = comment.created_at
+					.meta = pretty_time comment.created_at
 		

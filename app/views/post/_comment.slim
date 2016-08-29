@@ -3,7 +3,7 @@
 		.content
 			a.author = comment.user.email
 			.metadata
-				span = comment.created_at
+				span = pretty_time(comment.created_at)
 
 			.text = comment.content
 			.actions
